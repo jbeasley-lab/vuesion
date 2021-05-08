@@ -5,33 +5,33 @@ export const GetDocsPageData = gql`
   query GetDocsPageData($slug: String, $locale: String) {
     pageCollection(where: { OR: [{ slug: $slug }, { sys: { id: $slug } }] }, limit: 1, locale: $locale) {
       items {
-        sys {
-          id
-        }
         slug
         title
         metaDescription
         contentCollection(limit: 10) {
           items {
-            sys {
-              id
+            image {
+              url
+              title
             }
             fullWidth
             text {
               json
-              links {
-                assets {
-                  block {
-                    sys {
-                      id
-                    }
-                    contentType
-                    url
-                    description
-                  }
-                }
-              }
             }
+          }
+        }
+      }
+    }
+    categoryCollection(order: [position_ASC]) {
+      items {
+        sys {
+          id
+        }
+        title
+        pagesCollection {
+          items {
+            title
+            slug
           }
         }
       }

@@ -64,7 +64,7 @@
       </vue-sidebar-group>
 
       <vue-sidebar-group title="Documentation">
-        <vue-sidebar-group-item :to="{ name: 'docs' }">
+        <vue-sidebar-group-item to="/docs">
           <vue-icon-book />
           Documentation
         </vue-sidebar-group-item>

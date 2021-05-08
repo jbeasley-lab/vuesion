@@ -1,5 +1,7 @@
 <template>
   <component :is="fullWidth ? 'div' : 'VueContentBlock'" :class="$style.vueContentTypeRichText">
+    <vue-image v-if="image" :src="image.url" :alt="image.title" />
+
     <RichTextRenderer :document="text.json" :node-renderers="renderNodes()" />
   </component>
 </template>
@@ -10,7 +12,7 @@ import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import RichTextRenderer from 'contentful-rich-text-vue-renderer';
 import VueContentBlock from '@/components/layout/VueContentBlock/VueContentBlock.vue';
 import VueText from '@/components/atoms/VueText/VueText.vue';
-import { ContentTypeRichTextText, Maybe } from '@/interfaces/graphql/types';
+import { Asset, ContentTypeRichTextText, Maybe } from '@/interfaces/graphql/types';
 import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 
 export default defineComponent({
@@ -18,9 +20,10 @@ export default defineComponent({
   components: { RichTextRenderer, VueContentBlock, VueText, VueImage },
   props: {
     fullWidth: { type: Boolean, default: false },
-    text: { type: Object as () => Maybe<ContentTypeRichTextText>, default: false },
+    text: { type: Object as () => Maybe<ContentTypeRichTextText>, default: null },
+    image: { type: Object as () => Maybe<Asset>, default: null },
   },
-  setup(props) {
+  setup() {
     return {
       renderNodes() {
         const renderHeadline = (node: any, key: string, h: any, next: any, level = 1) => {
@@ -48,35 +51,27 @@ export default defineComponent({
             h('ol', {}, next(node.content, key, h, next)),
           [BLOCKS.LIST_ITEM]: (node: any, key: string, h: any, next: any) =>
             h('vue-text', { props: { as: 'li' } }, next(node.content, key, h, next)),
-          [BLOCKS.QUOTE]: (node: any, key: string, h: any, next: any) =>
-            h(
+          [BLOCKS.QUOTE]: (node: any, key: string, h: any, next: any) => {
+            return h(
               'vue-text',
               { props: { appearance: 'large-title', color: 'text-low', serifs: true, as: 'div' }, class: 'quote' },
               next(node.content, key, h, next),
-            ),
-          [BLOCKS.EMBEDDED_ASSET]: (node: any, key: string, h: any, next: any) => {
-            const assetId = node.data.target.sys.id;
-            const asset = props.text.links.assets.block.find((block) => block.sys.id === assetId);
-
-            if (asset.contentType.toLowerCase().includes('image/')) {
-              return h(
-                'vue-image',
-                { props: { src: asset.url, alt: asset.description } },
-                next(node.content, key, h, next),
-              );
-            }
-
-            return h('vue-text', {}, next("Content can't be displayed", key, h, next));
+            );
           },
           [INLINES.HYPERLINK]: (node: any, key: string, h: any, next: any) => {
             const href = node.data.uri;
+            const isExternal = href.includes('://');
+            const includesRoot = href.includes('/docs/');
 
-            return h('a', { attrs: { href, target: '_blank' } }, next(node.content, key, h, next));
-          },
-          [INLINES.ENTRY_HYPERLINK]: (node: any, key: string, h: any, next: any) => {
-            const entryId = node.data.target.sys.id;
+            if (isExternal) {
+              return h('a', { attrs: { href, target: '_blank' } }, next(node.content, key, h, next));
+            }
 
-            return h('nuxt-link', { props: { to: '/docs/' + entryId } }, next(node.content, key, h, next));
+            return h(
+              'nuxt-link',
+              { props: { to: includesRoot ? href : `/docs${href}` } },
+              next(node.content, key, h, next),
+            );
           },
         };
       },
@@ -89,13 +84,16 @@ export default defineComponent({
 @import '~@/assets/design-system';
 
 .vueContentTypeRichText {
+  text-align: center;
+
   :global {
     h1,
     h2,
     h3,
     h4,
     h5,
-    h6 {
+    h6,
+    img {
       margin-bottom: $space-24;
     }
 
@@ -106,6 +104,7 @@ export default defineComponent({
     ul,
     ol {
       margin-bottom: $space-24;
+      display: inline-block;
 
       li {
         p {

@@ -21,24 +21,24 @@ export default defineComponent({
 @import '~@/assets/_design-system';
 
 .vueContentBlock {
-  width: 100%;
+  width: calc(100% - #{$space-32});
   margin: 0 auto;
   position: relative;
 
   @include mediaMin(tabletPortrait) {
-    max-width: $screen-tablet-portrait-min;
+    max-width: calc(#{$screen-tablet-portrait-min} - #{$space-32});
   }
 
   @include mediaMin(tabletLandscape) {
-    max-width: $screen-tablet-landscape-min;
+    max-width: calc(#{$screen-tablet-landscape-min} - #{$space-64});
   }
 
   @include mediaMin(smallDesktop) {
-    max-width: $screen-small-desktop-min;
+    max-width: calc(#{$screen-small-desktop-min} - #{$space-64});
   }
 
   @include mediaMin(largeDesktop) {
-    max-width: $screen-large-desktop-min;
+    max-width: calc(#{$screen-large-desktop-min} - #{$space-128});
   }
 }
 </style>

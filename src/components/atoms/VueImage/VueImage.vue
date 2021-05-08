@@ -1,5 +1,5 @@
 <template>
-  <component :is="component" ref="image" :alt="native ? alt : null" :title="native ? null : alt" src="" />
+  <component :is="component" ref="image" :alt="native ? alt : null" :title="native ? null : alt" :src="src" />
 </template>
 
 <script lang="ts">

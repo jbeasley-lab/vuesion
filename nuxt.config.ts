@@ -67,13 +67,7 @@ const config: Configuration = {
     },
     transpile: ['vee-validate', '@vue/apollo-composable'],
   },
-  buildModules: [
-    '@nuxt/typescript-build',
-    '@nuxtjs/composition-api',
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/html-validator',
-    '@nuxtjs/color-mode',
-  ],
+  buildModules: ['@nuxt/typescript-build', '@nuxtjs/composition-api', '@nuxtjs/html-validator', '@nuxtjs/color-mode'],
   colorMode: {
     preference: 'system',
     fallback: 'light',
