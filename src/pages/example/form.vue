@@ -26,7 +26,7 @@ export default {
     VueGrid,
   },
   head: {
-    title: 'vuesion - Form Example',
+    title: 'Form Example',
   },
 };
 </script>

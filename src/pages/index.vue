@@ -185,7 +185,7 @@ export default {
   },
   head() {
     return {
-      title: 'vuesion - flexible, scalable, opinionated, fast',
+      title: 'Flexible, Scalable, Fast',
       meta: [
         {
           name: 'description',

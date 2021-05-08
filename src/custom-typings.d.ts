@@ -10,3 +10,4 @@ declare module 'marked' {
 }
 
 declare module 'form-data';
+declare module 'contentful-rich-text-vue-renderer';

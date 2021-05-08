@@ -49,7 +49,7 @@ export default defineComponent({
     VueText,
   },
   setup() {
-    useMeta({ title: 'vuesion - Apollo Example' });
+    useMeta({ title: 'Apollo Example' });
     const { app } = useContext();
     const breadCrumbItems = computed(() => [
       { label: app.i18n.t('common.home' /* Home */), href: '/' },

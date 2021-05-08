@@ -45,7 +45,7 @@ export default defineComponent({
     VueButton,
   },
   setup() {
-    useMeta({ title: 'vuesion - Counter Example' });
+    useMeta({ title: 'Counter Example' });
     const { store } = useContext();
     const count = computed(() => store.getters['counter/count']);
     const incrementPending = computed(() => store.getters['counter/incrementPending']);

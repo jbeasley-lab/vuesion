@@ -1,6 +1,9 @@
-schema: 'https://rickandmortyapi.com/graphql'
+schema:
+  - https://graphql.contentful.com/content/v1/spaces/p6newip3ed3b:
+      headers:
+        Authorization: 'Bearer a9c03f351c113fe6d15b4d2dc4afcf193027dd4b2179c86172174771fd759b3f'
 overwrite: true
-documents: 'src/graphql/**/*.ts'
+documents: 'src/graphql/DocsPage.ts'
 generates:
   src/interfaces/graphql/types.ts:
     plugins:

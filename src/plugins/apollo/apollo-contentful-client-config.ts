@@ -6,7 +6,7 @@ import { transformAxiosToFetch } from '@/plugins/axios/transform-axios-to-fetch'
 
 export default ({ $axios, $config, store }: Context) => {
   const httpLink = createHttpLink({
-    uri: $config.apollo.baseURL,
+    uri: $config.apollo.contentfulURL,
     fetch: transformAxiosToFetch($axios),
   });
   const fragmentMatcher = new IntrospectionFragmentMatcher({
@@ -23,7 +23,7 @@ export default ({ $axios, $config, store }: Context) => {
       ...previousContext,
       headers: {
         ...headers,
-        'x-locale': store.state.i18n.locale,
+        Authorization: `Bearer ${$config.apollo.contentfulToken}`,
       },
     };
   });

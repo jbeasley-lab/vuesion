@@ -2,7 +2,7 @@
   "schemaPath": "src/interfaces/graphql/schema.json",
   "extensions": {
     "endpoints": {
-      "dev": "https://rickandmortyapi.com/graphql"
+      "dev": "https://graphql.contentful.com/content/v1/spaces/p6newip3ed3b"
     }
   }
 }

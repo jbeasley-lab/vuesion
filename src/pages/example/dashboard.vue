@@ -98,7 +98,7 @@ export default defineComponent({
     return { pending, onClick };
   },
   head: {
-    title: 'vuesion - Dashboard',
+    title: 'Dashboard',
   },
 });
 </script>

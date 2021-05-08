@@ -1,5 +1,5 @@
 <template>
-  <component :is="component" ref="image" />
+  <component :is="component" ref="image" :alt="native ? alt : null" :title="native ? null : alt" src="" />
 </template>
 
 <script lang="ts">
@@ -13,6 +13,7 @@ export default defineComponent({
   props: {
     native: { type: Boolean, default: true },
     src: { type: String, required: true },
+    alt: { type: String, default: null },
   },
   setup(props) {
     const image = getDomRef(null);

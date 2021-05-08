@@ -5,6 +5,7 @@ const config: Configuration = {
   apollo: {
     clientConfigs: {
       default: '@/plugins/apollo/apollo-client-config.ts',
+      contentful: '@/plugins/apollo/apollo-contentful-client-config.ts',
     },
   },
   auth: {
@@ -85,7 +86,7 @@ const config: Configuration = {
   },
   css: [],
   head: {
-    title: process.env.npm_package_name || '',
+    titleTemplate: `${process.env.npm_package_name} - %s`,
     link: [
       {
         rel: 'stylesheet',
@@ -155,10 +156,12 @@ const config: Configuration = {
   ],
   publicRuntimeConfig: {
     axios: {
-      baseURL: process.env.baseURL || 'http://localhost:3000',
+      baseURL: process.env.BASE_URL || 'http://localhost:3000',
     },
     apollo: {
-      baseURL: process.env.graphQlEndpoint || 'https://rickandmortyapi.com/graphql',
+      baseURL: process.env.GRAPHQL_ENDPOINT || 'https://rickandmortyapi.com/graphql',
+      contentfulURL: process.env.CONTENTFUL_ENDPOINT || null,
+      contentfulToken: process.env.CONTENTFUL_TOKEN || null,
     },
   },
   privateRuntimeConfig: {},

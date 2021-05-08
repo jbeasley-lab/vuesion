@@ -25,9 +25,6 @@ export const DemoRoutes = (app: express.Application) => {
     }
   });
   app.use('/storybook', serve('../../../storybook-static'));
-  app.use('/docs', (_: express.Request, res: express.Response) => {
-    res.status(301).redirect('https://vuesion.github.io/docs/en/');
-  });
 
   /**
    * Auth-Demo
